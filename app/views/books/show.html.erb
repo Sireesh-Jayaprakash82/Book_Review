@@ -3,4 +3,4 @@
 <p> <%= @book.description %>
 <br>
 <%= link_to "Edit", edit_book_path(@book) %>
-<%= link_to "Delete", book_path(@book), method: :Delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Delete", book_path(@book), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
