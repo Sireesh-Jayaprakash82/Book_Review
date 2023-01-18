@@ -1,6 +1,16 @@
-<h2> <%= @book.title %> </h2>
+<center><h2> <%= @book.title %> </h2>
+<% if @book.category_id != nil %>
+    <h3>Category : <%= @book.category.name %></h3>
+<% else%>
+    <h3>Category : None</h3>
+<% end %>
 <h3> <%= @book.author %> </h3>
 <p> <%= @book.description %>
 <br>
-<%= link_to "Edit", edit_book_path(@book) %>
-<%= link_to "Delete", book_path(@book), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<%= link_to "Back", root_path %></center>
+<% if user_signed_in? %>
+<% if current_user.id == @book.user_id %>
+<center><%= link_to "Edit", edit_book_path(@book) %>
+<%= link_to "Delete", book_path(@book), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %></center>
+<% end %>
+<% end %>
