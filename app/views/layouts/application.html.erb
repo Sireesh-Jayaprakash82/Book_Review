@@ -11,8 +11,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+<body>
 <nav class="navbar navbar-default bg-dark">
-  <div class="container-fluid bg-dark">
+  <div class="container-fluid">
     <div class = "navbar-header">
       <%= link_to "Book Review", root_path, class: "navbar-brand" %>
     </div>
@@ -26,17 +27,18 @@
       <% end %>
       </li>
       <% Category.all.each do |category| %>
+      <li class = "<%= 'active' if params[:category] == category.name %>"></li>
       <li><%= link_to category.name, books_path(category: category.name)%></li>
       <% end %>
     </ul>
     <ul class = "nav navbar-nav">
       <% if user_signed_in? %>
-        <li><%= link_to "Add Books", new_book_path %></li>
+        <li><%= link_to "Add Books", new_book_path  %></li>
       <% end %>
+      <li><h4><%= DateTime.now.strftime("%H:%M:%S") %></h4></li>
     </ul>
   </div>
 </nav>
-  <body>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
     <%= yield %>

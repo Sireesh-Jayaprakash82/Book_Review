@@ -11,6 +11,60 @@
 <% if user_signed_in? %>
 <% if current_user.id == @book.user_id %>
 <center><%= link_to "Edit", edit_book_path(@book) %>
-<%= link_to "Delete", book_path(@book), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"} %></center>
+<%= link_to "Delete", book_path(@book), data: { turbo_method: :DELETE, turbo_confirm: "Are you sure?"} %>
+<% end %></center>
+<%
+=begin%>
+ <% debugger%> 
+<%
+=end%>
+<%
+=begin%>
+ <% debugger %> 
+<%
+=end%>
+<%
+=begin%>
+ <%= button_to "Add comments",  new_book_comment_path(@book), :method => :get %>
+<%= render @book.comments%> 
+<%
+=end%>
+<%
+=begin%>
+ <%= link_to "Add Comments", partial: "comments/form", locals: { comment: @book } %>  
+<%
+=end%>
+
+<%
+=begin%>
+ <p id="demo"></p> 
+<%
+=end%>
+
+<%
+=begin%>
+ <script>
+function myFunction() {
+  document.getElementById("demo").innerHTML = "<%= render partial: "comments/form", locals: { comment: @blog } %>";
+}
+</script> 
+<%
+=end%>
+<%
+=begin%>
+ <%= turbo_stream_from "mystr" %> 
+    <div class = "container-fluid" id="content">
+    <center><%= button_to "Comments", review_path %></center>
+    </div>  
+<%
+=end%>
+<center>
+<%= turbo_frame_tag "frame1" do %>
+<%= button_to "Add comments",  new_book_comment_path(@book), :method => :get %>
 <% end %>
+
+<div id="comment_display">
+<%= render @book.comments%>
+</div> 
+</center>
 <% end %>
