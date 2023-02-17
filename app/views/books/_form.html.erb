@@ -3,6 +3,15 @@
   <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a category") %>
   <%= f.input :title, label: "Book Title" %>
   <%= f.input :description, label: "Description" %>
+  <%
+=begin%>
+ <% debugger %> 
+<%
+=end%>
+  <%= f.simple_fields_for :price do |b| %>
+    <%= b.input :cost, label: "Cost of book"%>
+    <%= b.input :pages, label: "Pages"%>
+  <% end %>
   <%= f.input :author, label: "Author" %>
   <%= f.button :submit %>
 <% end %>

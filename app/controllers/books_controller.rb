@@ -12,13 +12,20 @@ class BooksController < ApplicationController
         # @book = Book.find(params[:id])
     end
     def new
+        # debugger
         @book = current_user.books.build
-        @categories = Category.all.map { |c| [c.name, c.id]}
+        @book.build_price
+        @book.build_price.user_id = current_user.id
+        @categories = Category.all.map{ |c| [c.name, c.id]}
     end
     def create
+        # debugger
         @book = current_user.books.build(book_params)
+        @price=@book.build_price(price_params)
+        @price.user_id = current_user.id
         @book.category_id = params[:category_id]
-        if @book.save
+        # debugger
+        if @book.save and @price.save
             redirect_to root_path
         else
             render 'new'
@@ -45,8 +52,13 @@ class BooksController < ApplicationController
     private
     
     def book_params
-        params.require(:book).permit(:title, :description, :author, :category_id)
+        params.require(:book).permit(:title, :description,  :author, :category_id, price_attributes: [:cost, :pages])
     end
+
+    def price_params
+        params.require(:book).require(:price_attributes).permit(:cost, :pages, :book_id, :user_id )
+    end
+
 
     def find_book
         @book = Book.find(params[:id])

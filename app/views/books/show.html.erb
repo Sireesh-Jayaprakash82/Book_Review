@@ -6,6 +6,16 @@
 <% end %>
 <h3> <%= @book.author %> </h3>
 <p> <%= @book.description %>
+<%
+=begin%>
+ <p> <%= @book.cost %> </p> 
+<%
+=end%>
+<%
+=begin%>
+ <p> <%= @book.pages %> </p> 
+<%
+=end%>
 <br>
 <%= link_to "Back", root_path %></center>
 <% if user_signed_in? %>
