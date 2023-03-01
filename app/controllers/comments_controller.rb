@@ -1,13 +1,13 @@
 class CommentsController < ApplicationController
-    before_action :find_book
+    before_action :find_book, except: %i[index]
     def index
-        @comment = Comment.all.order(created_at :DESC)
+        @comment = Comment.find_comments("Sireesh")
     end
 
     def new
         # debuggerx
         @comment = Comment.new
-    end
+    end 
 
     def create
         @comment = Comment.new(comment_params)
@@ -15,11 +15,12 @@ class CommentsController < ApplicationController
         @comment.user_id = current_user.id
         if @comment.save
             render turbo_stream: 
-              [                
-              turbo_stream.append('comment_display',
-              partial: "comments/comment",
-              locals: { comment: @comment })
-              ]  
+
+                [                
+                    turbo_stream.append('comment_display',
+                    partial: "comments/comment",
+                    locals: { comment: @comment })
+                ]  
         else
             render 'new'
         end

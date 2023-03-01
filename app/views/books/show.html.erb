@@ -1,11 +1,19 @@
+<%
+=begin%>
+ <% @price = Price.find_by(if @book.id==params[:id].to_i do @price.id) %>  
+<%
+=end%>
+
 <center><h2> <%= @book.title %> </h2>
 <% if @book.category_id != nil %>
     <h3>Category : <%= @book.category.name %></h3>
 <% else%>
     <h3>Category : None</h3>
 <% end %>
-<h3> <%= @book.author %> </h3>
-<p> <%= @book.description %>
+<h3>Author : <%= @book.author %> </h3>
+<p>Description : <%= @book.description %> </p>
+<p>Cost of the book : <%= @book.price.cost %> </p>
+<p>Pages : <%= @book.price.pages %> </p>
 <%
 =begin%>
  <p> <%= @book.cost %> </p> 
@@ -69,12 +77,12 @@ function myFunction() {
 <%
 =end%>
 <center>
-<%= turbo_frame_tag "frame1" do %>
-<%= button_to "Add comments",  new_book_comment_path(@book), :method => :get %>
-<% end %>
+    <%= turbo_frame_tag "frame1" do %> 
+        <%= button_to "Add comments",  new_book_comment_path(@book), :method => :get %>
+    <% end %> 
 
 <div id="comment_display">
-<%= render @book.comments%>
+    <%= render @book.comments%>
 </div> 
 </center>
 <% end %>

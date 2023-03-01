@@ -1,8 +1,26 @@
+<h1><%= Hola.greet %></h1>
 <% if @books.count==0 %>
     <h2><center>Currently there are no books in this category.</center></h2>
 <% else %>
     <% @books.each do |book| %>
         <h2><center><%= link_to book.title, book_path(book) %></center></h2>
+        <%
+=begin%>
+ <% debugger %> 
+<%
+=end%>
+        <h2><center>₹.<%= book.price.cost %></center></h2>
+        <br>
     <% end %>
-<% end %>
+<% end %> 
+<%
+
+=begin%>
+ <% @b.each do |book|%>
+<%= book.price.cost %>
+<%= book.price.pages %>
+<br>
+<% end %> 
+<%
+=end%>
 <center><%= link_to "Add Book", new_book_path %></center>

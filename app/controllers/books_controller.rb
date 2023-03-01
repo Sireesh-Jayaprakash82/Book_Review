@@ -1,15 +1,27 @@
 class BooksController < ApplicationController
     before_action :find_book, only: [:show, :update, :edit, :destroy]
+    # before_action :find_price, only: [:show]
     def index
+        # @a=HollaGem::Hola.greet.to_s
         if params[:category].blank?
-            @books = Book.all.order("created_at DESC")
+            # @books = Book.includes(:price)
+            # debugger
+            @books = Book.eager_load(:price)
+            # @books = Book.includes(:price).references(:price).where('Price.cost = ?', '1600')
+
         else
             @category_id = Category.find_by(name: params[:category]).id
             @books = Book.where(:category_id => @category_id).order("created_at DESC")
         end
+
+        # @b = Book.all.includes(:price)
     end
     def show
+        # debugger
         # @book = Book.find(params[:id])
+        # @price = Price.find(@book.id==@price.book_id)
+        # @book = Book.find(params[:id]).includes(:price)
+        # @books = Book.includes(:price).references(:price).where('@book.price.cost = ?', '1600')
     end
     def new
         # debugger
@@ -47,6 +59,7 @@ class BooksController < ApplicationController
     
     def edit
         @categories = Category.all.map { |c| [c.name, c.id]}
+        @books = Book.includes(:price).references(:price).where('price.cost = ?', '1600')
     end
 
     private
@@ -59,8 +72,12 @@ class BooksController < ApplicationController
         params.require(:book).require(:price_attributes).permit(:cost, :pages, :book_id, :user_id )
     end
 
-
     def find_book
         @book = Book.find(params[:id])
     end
+
+    # def find_price
+    #     # debugger
+    #     # @price = Price.find_by(book_id: params[:id])
+    # end
 end

@@ -4,4 +4,5 @@ class Book < ApplicationRecord
     has_many :comments
     has_one :price
     accepts_nested_attributes_for :price
+
 end

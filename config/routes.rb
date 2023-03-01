@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :comments, shallow: true
   end
   get '/review', to: 'comments#review'
+  get '/comment_display', to: 'comments#index'
 root 'books#index'
 end
   

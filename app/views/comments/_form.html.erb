@@ -1,11 +1,6 @@
 <center>
 <%= simple_form_for ([@book, @book.comments.build]) do |f| %>
   <%= f.input :name, label: "Name" %>
-  <%
-=begin%>
- <%= f.input :book_id, value: params[:book_id] %> 
-<%
-=end%>
   <%= f.input :description, label: "Description" %>
   <%= f.button :submit %>
 <% end %>
